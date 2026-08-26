@@ -1,21 +1,35 @@
 import React, { useRef } from 'react'
 import GradientButton from '../components/GradientButton'
+import { useContact } from '../context/ContactContext'
 import { gsap } from "gsap";
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { SplitText } from "gsap/SplitText";
 
-gsap.registerPlugin(useGSAP,ScrollTrigger,SplitText);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+
+// Splits ref.current text into word spans, guards against double-run
+const splitIntoWords = (el) => {
+  if (!el || el.querySelector('.split-word')) return []; // already split
+  const words = el.textContent.trim().split(/\s+/);
+  el.innerHTML = words
+    .map(w => `<span class="split-word" style="display:inline-block;overflow:hidden;"><span class="split-word-inner" style="display:inline-block">${w}</span></span>`)
+    .join(' ');
+  return el.querySelectorAll('.split-word-inner');
+};
 
 const Hero = () => {
-
+  const { openContact } = useContact();
   const heroRef = useRef(null);
+  const h1Ref  = useRef(null);
+  const h2Ref  = useRef(null);
 
   useGSAP(() => {
+    // Reduced-motion: skip all animations
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    // pin hero section
+    // Pin hero section
     ScrollTrigger.create({
-      trigger: heroRef.current,        
+      trigger: heroRef.current,
       start: "top top",
       end: "bottom top",
       pin: true,
@@ -23,61 +37,33 @@ const Hero = () => {
       scrub: 1
     });
 
-    // Animate h1
-    SplitText.create("h1", {
-      type: "lines, words",
-      mask: "lines",
-      autoSplit: true,
-      onSplit(self) {
-        gsap.from(self.words, {
-          y: 100,
-          opacity: 0,
-          delay: 0.2,
-          stagger: 0.1,
-        });
-      }
+    // Animate h1 words via ref (scoped, guards double-run)
+    const h1Words = splitIntoWords(h1Ref.current);
+    gsap.from(h1Words, {
+      y: 80, opacity: 0, delay: 0.2, stagger: 0.1, duration: 0.6, ease: "power3.out",
     });
 
-    // Animate h2
-    SplitText.create("h2", {
-      type: "lines, words",
-      mask: "lines",
-      autoSplit: true,
-      onSplit(self) {
-        gsap.from(self.words, {
-          y: 100,
-          opacity: 0,
-          stagger: 0.15,
-          delay: 0.4,
-        });
-      }
+    // Animate h2 words via ref
+    const h2Words = splitIntoWords(h2Ref.current);
+    gsap.from(h2Words, {
+      y: 80, opacity: 0, stagger: 0.12, delay: 0.5, duration: 0.6, ease: "power3.out",
     });
 
     // Animate button
     gsap.from(".gradient-btn", {
-      opacity: 0,
-      y: 40,
-      duration: 0.5,
-      ease: "power2.out",
-      delay: 1.3, 
+      opacity: 0, y: 40, duration: 0.5, ease: "power2.out", delay: 1.3,
     });
 
     // Animate star shape
     gsap.from(".star svg", {
-      scale: 0,
-      rotate: 180,
-      opacity: 0,
+      scale: 0, rotate: 180, opacity: 0,
       transformOrigin: "center center",
-      duration: 1.3,
-      ease: "back.out(1.7)",
+      duration: 1.3, ease: "back.out(1.7)",
       onComplete: () => {
-        // Start continuous rotation after the initial animation
         gsap.to(".star svg", {
-          rotate: "+=360", // rotate infinitely
+          rotate: "+=360",
           transformOrigin: "center",
-          duration: 20,    // adjust speed
-          ease: "linear",
-          repeat: -1,
+          duration: 20, ease: "linear", repeat: -1,
         });
       },
     });
@@ -90,9 +76,9 @@ const Hero = () => {
 
         {/* Text container */}
         <div className="main-container h-screen flex flex-col lg:justify-center items-start lg:py-12 max-lg:pt-40">
-          <h1 className="text-3xl lg:text-[3.2vw] uppercase font-heading font-semibold">John Doe</h1>
-          <h2 className="text-6xl lg:text-[8vw] font-heading font-bold leading-[1] tracking-tight mt-3 mb-6">Web Developer <br/> & <span className='text-stroke'> Designer </span></h2>
-          <GradientButton text="Let's Talk" link="mailto:john@gmail.com" className="gradient-btn" />
+          <h1 ref={h1Ref} className="text-3xl lg:text-[3.2vw] uppercase font-heading font-semibold">Digvijay Wadekar</h1>
+          <h2 ref={h2Ref} className="text-6xl lg:text-[8vw] font-heading font-bold leading-[1] tracking-tight mt-3 mb-6">Frontend <br /> <span className='text-stroke'>Web Developer</span></h2>
+          <GradientButton text="Let's Talk" onClick={openContact} className="gradient-btn" />
         </div>
 
         {/* shape */}
@@ -110,7 +96,7 @@ const Hero = () => {
             </defs>
           </svg>
         </div>
-        
+
       </div>
     </>
   )

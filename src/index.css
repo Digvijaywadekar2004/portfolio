@@ -20,6 +20,27 @@
 
 @layer base {
 
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
+
   body {
     @apply bg-black text-white antialiased font-body text-xl overflow-x-clip;
   }
@@ -65,6 +86,11 @@
     color: transparent;
   }
 
+  .text-stroke-dark {
+    -webkit-text-stroke: 1.5px black;
+    color: transparent;
+  }
+
   .btn {
     background: linear-gradient(#000, #000) padding-box,
         var(--color-gradient) border-box;
@@ -83,19 +109,15 @@
   }
 
   @keyframes marquee {
-    0% {
-      transform: translateX(-100%);
-    }
-    100% {
-      transform: translateX(0%);
-    }
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
 
   .animate-marquee {
     animation: marquee 15s linear infinite;
   }
 
-  .animate-marquee-reverse{
+  .animate-marquee-reverse {
     animation: marquee 15s linear infinite reverse;
   }
 
@@ -131,3 +153,13 @@
   }
   
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-marquee-reverse,
+  .marquee-star1,
+  .marquee-star2 {
+    animation-play-state: paused !important;
+  }
+}
+
