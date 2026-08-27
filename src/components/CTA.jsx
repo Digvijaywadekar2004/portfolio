@@ -46,6 +46,12 @@ const CTA = () => {
     );
 
     // Character stagger entrance animation on headline
+    // toggleActions: "play none none reset"
+    //   onEnter       → play   (scroll into view)
+    //   onLeave       → none   (scroll past, do nothing)
+    //   onEnterBack   → none   (scroll back to end, do nothing)
+    //   onLeaveBack   → reset  (scroll back above start → reset chars to invisible)
+    //                          so the animation replays fresh every time the user scrolls in
     const chars = splitIntoChars(headingRef.current);
     if (chars.length) {
       gsap.from(chars, {
@@ -58,6 +64,7 @@ const CTA = () => {
         scrollTrigger: {
           trigger: headingRef.current,
           start: 'top 88%',
+          toggleActions: 'play none none reset',
         },
       });
     }
