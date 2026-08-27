@@ -54,6 +54,11 @@ const Hero = () => {
       opacity: 0, y: 40, duration: 0.5, ease: "power2.out", delay: 1.3,
     });
 
+    // Animate scroll indicator
+    gsap.from(".hero-scroll-indicator", {
+      opacity: 0, y: -10, duration: 0.6, ease: "power2.out", delay: 1.8,
+    });
+
     // Animate star shape
     gsap.from(".star svg", {
       scale: 0, rotate: 180, opacity: 0,
@@ -74,11 +79,59 @@ const Hero = () => {
     <>
       <div ref={heroRef} className='relative overflow-hidden z-0'>
 
+        {/* Ambient glow blobs — pure CSS, no JS */}
+        <div className="absolute inset-0 -z-10 pointer-events-none" aria-hidden="true">
+          {/* Purple blob — top right */}
+          <div style={{
+            position: 'absolute',
+            top: '5%',
+            right: '-5%',
+            width: '60vw',
+            height: '60vw',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(123,47,247,0.18) 0%, transparent 70%)',
+            filter: 'blur(40px)',
+          }} />
+          {/* Pink blob — bottom left */}
+          <div style={{
+            position: 'absolute',
+            bottom: '10%',
+            left: '-10%',
+            width: '45vw',
+            height: '45vw',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(255,77,109,0.12) 0%, transparent 70%)',
+            filter: 'blur(50px)',
+          }} />
+          {/* Cyan accent — center right */}
+          <div style={{
+            position: 'absolute',
+            top: '40%',
+            right: '20%',
+            width: '25vw',
+            height: '25vw',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(47,247,237,0.07) 0%, transparent 70%)',
+            filter: 'blur(30px)',
+          }} />
+        </div>
+
         {/* Text container */}
         <div className="main-container h-screen flex flex-col lg:justify-center items-start lg:py-12 max-lg:pt-40">
           <h1 ref={h1Ref} className="text-3xl lg:text-[3.2vw] uppercase font-heading font-semibold">Digvijay Wadekar</h1>
           <h2 ref={h2Ref} className="text-6xl lg:text-[8vw] font-heading font-bold leading-[1] tracking-tight mt-3 mb-6">Frontend <br /> <span className='text-stroke'>Web Developer</span></h2>
           <GradientButton text="Let's Talk" onClick={openContact} className="gradient-btn" />
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="hero-scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none" aria-hidden="true">
+          <span className="text-xs font-heading font-medium uppercase tracking-[0.2em] text-white/40">Scroll</span>
+          <div className="scroll-indicator flex flex-col items-center gap-1">
+            <div className="w-px h-8 bg-gradient-to-b from-white/50 to-transparent rounded-full" />
+            <svg width="12" height="8" viewBox="0 0 12 8" fill="none" className="text-white/40">
+              <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
         </div>
 
         {/* shape */}

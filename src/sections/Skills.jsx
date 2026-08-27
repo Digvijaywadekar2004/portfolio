@@ -43,23 +43,37 @@ const Skills = () => {
       scrollTrigger: { trigger: '.skills-title', start: 'top 85%' },
     })
 
-    // Animate skill bars
+    // Animate skill bars + percentage count-up
     gsap.utils.toArray('.skill-bar-fill').forEach((bar) => {
-      const targetWidth = bar.dataset.width
+      const targetWidth   = bar.dataset.width
+      const targetPercent = parseFloat(targetWidth)
+      const counterEl     = bar.closest('.skill-row')?.querySelector('.skill-percent')
+
       if (reduced) {
-        // Show final state immediately
         gsap.set(bar, { width: targetWidth })
+        if (counterEl) counterEl.textContent = `${Math.round(targetPercent)}%`
       } else {
+        const obj = { val: 0 }
         gsap.fromTo(
           bar,
           { width: '0%' },
           {
             width: targetWidth,
-            duration: 1.2,
+            duration: 1.4,
             ease: 'power3.out',
             scrollTrigger: { trigger: bar, start: 'top 90%' },
           }
         )
+        // Simultaneously count up the percentage number
+        gsap.to(obj, {
+          val: targetPercent,
+          duration: 1.4,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: bar, start: 'top 90%' },
+          onUpdate() {
+            if (counterEl) counterEl.textContent = `${Math.round(obj.val)}%`
+          },
+        })
       }
     })
 
@@ -79,7 +93,7 @@ const Skills = () => {
     <div ref={skillsRef} className='bg-white text-black'>
       <div className='main-container py-20 lg:py-28'>
 
-        {/* Header — h2 (correct hierarchy) */}
+        {/* Header */}
         <div className='skills-title mb-14 lg:mb-20'>
           <h2 className="font-heading font-medium uppercase text-2xl">What I Work With</h2>
           <h3 className='text-5xl lg:text-[6vw] font-heading font-bold leading-[1] tracking-tight mt-3'>
@@ -92,12 +106,16 @@ const Skills = () => {
           {/* Skill Bars */}
           <div className='flex flex-col gap-8'>
             {skillsData.map(({ name, level }) => (
-              <div key={name}>
+              <div key={name} className='skill-row'>
                 <div className='flex justify-between items-center mb-2'>
                   <span className='font-heading font-semibold text-lg lg:text-xl'>{name}</span>
-                  <span className='text-sm font-medium text-gray-500'>{proficiencyLabel(level)}</span>
+                  <div className='flex items-center gap-2'>
+                    <span className='skill-percent stat-number text-sm font-bold text-black tabular-nums'>0%</span>
+                    <span className='text-sm font-medium text-gray-400'>·</span>
+                    <span className='text-sm font-medium text-gray-500'>{proficiencyLabel(level)}</span>
+                  </div>
                 </div>
-                <div className='w-full h-2 bg-gray-200 rounded-full overflow-hidden'>
+                <div className='w-full h-2 bg-gray-100 rounded-full overflow-hidden'>
                   <div
                     className='skill-bar-fill h-full rounded-full'
                     data-width={`${level}%`}
@@ -118,7 +136,7 @@ const Skills = () => {
               {techStack.map((tech) => (
                 <span
                   key={tech}
-                  className='tech-badge inline-block px-5 py-2.5 rounded-full border border-gray-200 font-heading font-medium text-sm lg:text-base hover:border-purple-400 hover:text-purple-600 transition-colors duration-300 cursor-default'
+                  className='tech-badge inline-block px-5 py-2.5 rounded-full border border-gray-200 font-heading font-medium text-sm lg:text-base hover:border-purple-400 hover:text-purple-600 hover:bg-purple-50 transition-all duration-300 cursor-default'
                 >
                   {tech}
                 </span>

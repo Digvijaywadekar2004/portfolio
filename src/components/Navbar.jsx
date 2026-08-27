@@ -9,8 +9,16 @@ gsap.registerPlugin(useGSAP);
 
 const Navbar = () => {
   const { openContact } = useContact();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen]   = useState(false);
+  const [scrolled, setScrolled]   = useState(false);
   const navbarRef = useRef(null);
+
+  // Scroll detection for blur effect
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 80);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   // Close on Escape key
   useEffect(() => {
@@ -29,7 +37,14 @@ const Navbar = () => {
 
   return (
     <>
-      <nav ref={navbarRef} className='fixed top-0 z-30 w-full mix-blend-difference'>
+      <nav
+        ref={navbarRef}
+        className={`fixed top-0 z-30 w-full transition-all duration-400 ${
+          scrolled && !menuOpen
+            ? 'bg-black/70 backdrop-blur-md border-b border-white/10'
+            : 'mix-blend-difference'
+        }`}
+      >
         <div className='main-container py-6 flex justify-between items-center'>
 
           {/* Logo */}
@@ -58,7 +73,7 @@ const Navbar = () => {
               </svg>
             </a>
 
-            {/* Email Icon — direct native mailto */}
+            {/* Email Icon */}
             <a
               href="mailto:digvijaywadekar350@gmail.com"
               aria-label="Send email to Digvijay"
@@ -79,7 +94,7 @@ const Navbar = () => {
               Resume
             </a>
 
-            {/* Hamburger — converted to <button> for keyboard a11y */}
+            {/* Hamburger */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"

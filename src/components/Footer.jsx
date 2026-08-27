@@ -2,9 +2,11 @@ import React from 'react'
 import Logo from '../assets/images/logo.svg'
 import { Link } from 'react-router-dom'
 import { useToast } from '../context/ToastContext'
+import { useContact } from '../context/ContactContext'
 
 const Footer = () => {
-  const { showToast } = useToast()
+  const { showToast }   = useToast()
+  const { openContact } = useContact()
 
   const copyEmail = () => {
     navigator.clipboard.writeText('digvijaywadekar350@gmail.com')
@@ -13,11 +15,66 @@ const Footer = () => {
 
   return (
     <>
-      {/* Divider */}
-      <div className='max-w-[1500px] m-auto h-[1px] bg-white opacity-10'></div>
+      {/* ── Big CTA Heading ── */}
+      <div className="bg-black overflow-hidden">
+        <div className="main-container pt-20 lg:pt-28 pb-12 lg:pb-16 flex flex-col gap-6 items-start">
 
-      {/* Footer Top */}
-      <footer className="main-container grid md:grid-cols-2 lg:grid-cols-4 gap-10 py-20">
+          {/* Availability badge */}
+          <div className="flex items-center gap-2.5 px-4 py-2 rounded-full border border-white/15 bg-white/5 w-fit">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse inline-block" />
+            <span className="text-sm font-heading font-medium text-white/70 uppercase tracking-widest">
+              Available for Opportunities
+            </span>
+          </div>
+
+          {/* Big "Let's Talk" heading */}
+          <h2
+            className="font-heading font-bold leading-[0.9] tracking-tight text-white cursor-pointer group select-none"
+            style={{ fontSize: 'clamp(3.5rem, 12vw, 10rem)' }}
+            onClick={openContact}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === 'Enter' && openContact()}
+            aria-label="Open contact form"
+          >
+            <span className="group-hover:opacity-80 transition-opacity">Let's</span>{' '}
+            <span
+              className="text-stroke group-hover:opacity-80 transition-opacity"
+              style={{ WebkitTextStroke: '2px white' }}
+            >
+              Talk.
+            </span>
+          </h2>
+
+          <p className="text-white/40 text-base lg:text-lg font-body max-w-md">
+            Have a project in mind, want to collaborate, or just want to say hi? My inbox is always open.
+          </p>
+
+          <button
+            onClick={openContact}
+            className="flex items-center gap-2 text-white/60 hover:text-white transition-colors font-heading font-medium text-sm uppercase tracking-widest group"
+          >
+            <span>digvijaywadekar350@gmail.com</span>
+            <svg className="group-hover:translate-x-1 transition-transform" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+
+        {/* Animated gradient divider */}
+        <div
+          className="w-full h-[2px] opacity-50"
+          style={{
+            background: 'linear-gradient(90deg, #FF4D6D 0%, #BD3EB2 25%, #7B2FF7 50%, #2F86F7 75%, #2FF7ED 100%)',
+          }}
+          aria-hidden="true"
+        />
+      </div>
+
+      {/* ── Footer Grid ── */}
+      <div className='max-w-[1500px] m-auto h-[1px] bg-white opacity-10' />
+
+      <footer className="main-container grid md:grid-cols-2 lg:grid-cols-4 gap-10 py-20 bg-black">
 
         {/* Logo + Tagline */}
         <div className='flex flex-col gap-4'>
@@ -25,7 +82,7 @@ const Footer = () => {
             <img src={Logo} alt="Digvijay Wadekar Logo" className='h-10 w-auto' />
           </Link>
           <p className='text-sm text-white/50 leading-relaxed max-w-[180px]'>
-            Frontend developer building fast, real-world web apps.
+            Full-stack & systems developer building fast, real-world applications.
           </p>
         </div>
 
@@ -34,9 +91,9 @@ const Footer = () => {
           <h5 className='font-medium mb-5'>What I Build</h5>
           <ul className='flex flex-col gap-2 text-base lg:text-lg text-white/70'>
             <li>React Development</li>
+            <li>Container Orchestration</li>
             <li>Real-Time Web Apps</li>
-            <li>REST APIs & Backend</li>
-            <li>UI / UX Integration</li>
+            <li>REST APIs &amp; Backend</li>
           </ul>
         </div>
 
@@ -46,7 +103,7 @@ const Footer = () => {
           <ul className='flex flex-col gap-2 text-base lg:text-lg'>
             <li><Link to='/' className='text-white/70 hover:text-white transition-colors'>Home</Link></li>
             <li><Link to='/projects' className='text-white/70 hover:text-white transition-colors'>Projects</Link></li>
-            <li><a href='mailto:digvijaywadekar350@gmail.com' className='text-white/70 hover:text-white transition-colors'>Contact</a></li>
+            <li><button onClick={openContact} className='text-white/70 hover:text-white transition-colors cursor-pointer bg-transparent border-0 text-base lg:text-lg font-body p-0'>Contact</button></li>
           </ul>
         </div>
 
@@ -74,10 +131,10 @@ const Footer = () => {
       </footer>
 
       {/* Divider */}
-      <div className='max-w-[1500px] m-auto h-[1px] bg-white opacity-10'></div>
+      <div className='max-w-[1500px] m-auto h-[1px] bg-white opacity-10' />
 
       {/* Footer Bottom */}
-      <div className='main-container grid md:grid-cols-2 gap-3 py-6 lg:py-8 max-md:text-center'>
+      <div className='main-container grid md:grid-cols-2 gap-3 py-6 lg:py-8 max-md:text-center bg-black'>
         <div className='text-base text-white/50'>© {new Date().getFullYear()} Digvijay Wadekar — All rights reserved</div>
 
         {/* Social Links */}
@@ -90,7 +147,7 @@ const Footer = () => {
             </svg>
           </a>
 
-          {/* LinkedIn — TODO: verify slug */}
+          {/* LinkedIn */}
           <a href="https://linkedin.com/in/digvijaywadekar" target="_blank" rel="noopener noreferrer" className='p-2 text-white/50 hover:text-white transition-colors'>
             <svg width="24" height="24" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M8.67481 6.25003C8.67447 6.91307 8.41076 7.54882 7.94169 8.01743C7.47261 8.48604 6.8366 8.74911 6.17356 8.74878C5.51051 8.74845 4.87476 8.48474 4.40615 8.01566C3.93755 7.54659 3.67447 6.91057 3.67481 6.24753C3.67514 5.58449 3.93885 4.94874 4.40792 4.48013C4.877 4.01152 5.51301 3.74845 6.17605 3.74878C6.8391 3.74911 7.47485 4.01282 7.94346 4.4819C8.41206 4.95097 8.67514 5.58699 8.67481 6.25003ZM8.74981 10.6H3.7498V26.25H8.74981V10.6ZM16.6498 10.6H11.6748V26.25H16.5998V18.0375C16.5998 13.4625 22.5623 13.0375 22.5623 18.0375V26.25H27.4998V16.3375C27.4998 8.62503 18.6748 8.91253 16.5998 12.7L16.6498 10.6Z" fill="currentColor"/>

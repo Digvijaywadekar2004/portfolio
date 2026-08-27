@@ -1,5 +1,5 @@
-import React from 'react'
-import { Routes, Route } from "react-router-dom";
+import React, { useEffect } from 'react'
+import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from './components/Navbar'
 import Home from "./pages/Home";
 import Projects from "./pages/Projects";
@@ -8,8 +8,18 @@ import Footer from './components/Footer'
 import ContactModal from './components/ContactModal'
 import SmoothScroll from './components/SmoothScroll'
 import CustomCursor from './components/CustomCursor'
+import BackToTop from './components/BackToTop'
 import { ContactProvider } from './context/ContactContext'
 import { ToastProvider } from './context/ToastContext'
+
+// Scroll to top on every route change
+const ScrollToTopOnNav = () => {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+  return null
+}
 
 const App = () => {
   return (
@@ -18,6 +28,7 @@ const App = () => {
         <SmoothScroll />
         <CustomCursor />
         <Navbar />
+        <ScrollToTopOnNav />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />
@@ -25,6 +36,7 @@ const App = () => {
         </Routes>
         <Footer />
         <ContactModal />
+        <BackToTop />
       </ContactProvider>
     </ToastProvider>
   )

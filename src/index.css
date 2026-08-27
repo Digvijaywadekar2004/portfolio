@@ -108,6 +108,7 @@
     color: black;
   }
 
+  /* ── Marquee ── */
   @keyframes marquee {
     0%   { transform: translateX(0); }
     100% { transform: translateX(-50%); }
@@ -117,17 +118,15 @@
     animation: marquee 15s linear infinite;
   }
 
+  /* Slightly slower reverse row for organic feel */
   .animate-marquee-reverse {
-    animation: marquee 15s linear infinite reverse;
+    animation: marquee 18s linear infinite reverse;
   }
 
+  /* ── Star rotations ── */
   @keyframes rotate360 {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
   .marquee-star1 {
@@ -140,8 +139,95 @@
     transform-origin: center;
   }
 
+  /* ── Nav ── */
   .menu-link {
     @apply text-[10vw] lg:text-[6vw] font-heading font-medium uppercase lg:opacity-60 hover:opacity-100;
+  }
+
+  /* ── Scroll indicator bounce ── */
+  @keyframes scroll-bounce {
+    0%, 100% { transform: translateY(0); opacity: 0.6; }
+    50%       { transform: translateY(8px); opacity: 1; }
+  }
+
+  .scroll-indicator {
+    animation: scroll-bounce 1.6s ease-in-out infinite;
+  }
+
+  /* ── Image loading shimmer ── */
+  @keyframes shimmer {
+    0%   { background-position: -400px 0; }
+    100% { background-position: 400px 0; }
+  }
+
+  .shimmer {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 800px 100%;
+    animation: shimmer 1.4s ease-in-out infinite;
+  }
+
+  /* ── Page fade transition ── */
+  @keyframes page-fade-in {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .page-enter {
+    animation: page-fade-in 0.4s ease-out forwards;
+  }
+
+  /* ── Back-to-top button ── */
+  .back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 40;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background: linear-gradient(#000, #000) padding-box,
+                var(--color-gradient) border-box;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity 0.3s, transform 0.3s;
+  }
+
+  .back-to-top:hover {
+    background: var(--color-gradient) padding-box,
+                var(--color-gradient) border-box;
+    transform: translateY(-3px);
+  }
+
+  .back-to-top.hidden-btn {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+  }
+
+  /* ── Stats counter ── */
+  .stat-number {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ── Gradient progress bar ── */
+  .progress-bar-track {
+    height: 2px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 9999px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--color-gradient);
+    border-radius: 9999px;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.1s linear;
   }
 
 }
@@ -158,8 +244,13 @@
   .animate-marquee,
   .animate-marquee-reverse,
   .marquee-star1,
-  .marquee-star2 {
+  .marquee-star2,
+  .scroll-indicator,
+  .shimmer {
     animation-play-state: paused !important;
   }
-}
 
+  .page-enter {
+    animation: none;
+  }
+}

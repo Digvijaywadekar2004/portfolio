@@ -9,14 +9,15 @@ gsap.registerPlugin(useGSAP,ScrollTrigger);
 
 const Work = () => {
 
-  const workRef = useRef(null);
+  const workRef     = useRef(null);
   const projectsRef = useRef(null);
+  const progressRef = useRef(null);
 
   useGSAP(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     // Horizontal scroll
-    const projectsWidth = projectsRef.current.scrollWidth;
+    const projectsWidth  = projectsRef.current.scrollWidth;
     const scrollDistance = projectsWidth - window.innerWidth;
 
     gsap.to(projectsRef.current, {
@@ -28,8 +29,14 @@ const Work = () => {
         end: () => `+=${projectsWidth}`,
         pin: true,
         scrub: 1,
-        anticipatePin: 1, // prevents flicker on fast scroll
+        anticipatePin: 1,
         invalidateOnRefresh: true,
+        // Update the progress bar fill width as user scrolls
+        onUpdate: (self) => {
+          if (progressRef.current) {
+            progressRef.current.style.transform = `scaleX(${self.progress})`;
+          }
+        },
       },
     });
   }, { scope: workRef });
@@ -45,8 +52,18 @@ const Work = () => {
             <h2 className='font-heading font-medium uppercase text-2xl mb-3'>Selected Work</h2>
             <p className='text-lg lg:text-xl'>A showcase of my selected projects—designed to inspire, engage, and deliver real results.</p>
           </div>
-          <GradientButton text="Explore All" link="/projects" className="btn-light" />
+          <div className='flex flex-col items-end gap-4'>
+            <GradientButton text="Explore All" link="/projects" className="btn-light" />
+            {/* Scroll progress bar */}
+            <div className="hidden lg:block w-40">
+              <div className="progress-bar-track">
+                <div ref={progressRef} className="progress-bar-fill" />
+              </div>
+              <p className='text-xs text-gray-400 mt-1 font-heading'>Scroll to explore</p>
+            </div>
+          </div>
         </div>
+
         <div ref={projectsRef}>
           {/* Projects */}
           <div className='flex gap-4 lg:gap-8 ms-4 lg:ms-[30%] mt-6'>
@@ -56,7 +73,7 @@ const Work = () => {
                 href={link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative rounded-2xl w-full min-w-[280px] lg:min-w-[380px] h-56 lg:h-72 block overflow-hidden group shrink-0"
+                className="project-card relative rounded-2xl w-full min-w-[280px] lg:min-w-[380px] h-56 lg:h-72 block overflow-hidden group shrink-0"
               >
                 {/* Project Image */}
                 <img
