@@ -8,8 +8,8 @@ const services = [
       'Building fast, responsive, interactive interfaces with React.js, JavaScript (ES6+), Tailwind CSS, and Vite. Clean component architecture, thoughtful typography, and polished UX on every screen size.',
     bg: 'bg-black text-white',
     borderColor: '#7B2FF7',
-    sticky: 'top-4',
-    pb: 'pb-[28rem] md:pb-[32rem] lg:pb-[40rem]',
+    sticky: 'top-16 sm:top-20 lg:top-24',
+    pb: 'pb-24 sm:pb-36 lg:pb-[28rem]',
     numberColor: 'text-gray-500',
     icon: (
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -27,8 +27,8 @@ const services = [
       'Live dashboards and streaming pipelines with Socket.io and Recharts — real-time telemetry, instant alerts, and low-latency updates, end to end.',
     bg: 'bg-[#E9E9F0] text-black',
     borderColor: '#FF4D6D',
-    sticky: 'top-1/3',
-    pb: 'pb-[16rem] md:pb-[20rem] lg:pb-[23rem]',
+    sticky: 'top-24 sm:top-32 lg:top-36',
+    pb: 'pb-16 sm:pb-24 lg:pb-[18rem]',
     numberColor: 'text-gray-400',
     icon: (
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -43,8 +43,8 @@ const services = [
       'REST APIs with Node.js, Express, MongoDB, and PostgreSQL — JWT auth, role-based access, and query optimization for reliable performance under load.',
     bg: 'bg-white text-black',
     borderColor: '#2F86F7',
-    sticky: 'top-2/3',
-    pb: 'py-16 lg:py-20',
+    sticky: 'top-32 sm:top-44 lg:top-48',
+    pb: 'py-12 sm:py-16 lg:py-20',
     numberColor: 'text-gray-400',
     icon: (
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -61,8 +61,8 @@ const Services = () => {
     <>
       {/* Section Header */}
       <div className="bg-white text-black">
-        <div className='main-container pb-8 lg:pb-12'>
-          <h2 className="font-heading font-medium uppercase text-2xl">What I Build</h2>
+        <div className='main-container pb-6 sm:pb-8 lg:pb-12'>
+          <h2 className="font-heading font-medium uppercase text-xl sm:text-2xl">What I Build</h2>
         </div>
       </div>
 
@@ -71,11 +71,11 @@ const Services = () => {
         {services.map(({ number, title, description, bg, borderColor, sticky, pb, numberColor, icon }, i) => (
           <div
             key={i}
-            className={`${bg} pt-16 lg:pt-20 ${pb} sticky ${sticky}`}
+            className={`${bg} pt-12 sm:pt-16 lg:pt-20 ${pb} sticky ${sticky} shadow-lg`}
           >
             {/* Colored left border accent line */}
             <div
-              className="absolute left-0 top-0 w-1 h-full opacity-80"
+              className="absolute left-0 top-0 w-1 sm:w-1.5 h-full opacity-80"
               style={{ background: borderColor }}
               aria-hidden="true"
             />
@@ -83,15 +83,15 @@ const Services = () => {
             <div className="main-container grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-12 items-start">
 
               {/* Left — Number + Icon + Title */}
-              <div className='flex gap-6 lg:gap-8'>
-                <span className={`${numberColor} text-lg lg:text-2xl font-heading tracking-wide block mb-4 shrink-0`}>
+              <div className='flex gap-4 sm:gap-6 lg:gap-8'>
+                <span className={`${numberColor} text-base sm:text-lg lg:text-2xl font-heading tracking-wide block mb-2 sm:mb-4 shrink-0`}>
                   {number}
                 </span>
                 <div>
                   {/* Icon */}
-                  <div className="mb-4 opacity-90">{icon}</div>
-                  {/* h3 */}
-                  <h3 className="text-[8vw] md:text-6xl font-heading font-bold leading-[1]">
+                  <div className="mb-3 sm:mb-4 opacity-90">{icon}</div>
+                  {/* Title */}
+                  <h3 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold leading-[1]">
                     {title[0]} <br /> {title[1]}
                   </h3>
                 </div>
@@ -99,7 +99,7 @@ const Services = () => {
 
               {/* Right — Description */}
               <div className="flex items-center">
-                <p className="text-lg lg:text-xl leading-relaxed opacity-80">
+                <p className="text-base sm:text-lg lg:text-xl leading-relaxed opacity-85">
                   {description}
                 </p>
               </div>

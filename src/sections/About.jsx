@@ -65,40 +65,40 @@ const About = () => {
 
   return (
     <>
-      <div ref={aboutRef} className='bg-white rounded-tl-[60px] rounded-tr-[60px] relative z-10'>
-        <div className='about-text main-container py-20 lg:py-28 flex flex-col justify-center gap-12'>
+      <div ref={aboutRef} className='bg-white rounded-tl-[36px] rounded-tr-[36px] sm:rounded-tl-[60px] sm:rounded-tr-[60px] relative z-10'>
+        <div className='about-text main-container py-16 sm:py-20 lg:py-28 flex flex-col justify-center gap-8 sm:gap-12'>
 
           {/* Bold headline statement */}
-          <p className='font-heading text-black text-3xl md:text-4xl xl:text-[3vw] 2xl:text-5xl font-bold leading-[1.2] tracking-tight'>
+          <p className='font-heading text-black text-2xl sm:text-3xl md:text-4xl xl:text-[3vw] 2xl:text-5xl font-bold leading-[1.2] tracking-tight'>
             I bridge intuitive design with{' '}
             <span className='text-stroke-dark'>real-world engineering</span>{' '}
             — building web apps that are fast, functional, and built to last.
           </p>
 
           {/* Stats grid */}
-          <div className='grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-10 py-8 border-y border-black/10'>
+          <div className='grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 lg:gap-10 py-6 sm:py-8 border-y border-black/10'>
             {stats.map(({ value, suffix, label, decimals }) => (
-              <div key={label} className='flex flex-col gap-1'>
+              <div key={label} className='flex flex-col gap-0.5 sm:gap-1'>
                 <div className='flex items-end gap-0.5'>
                   <span
-                    className='stat-count stat-number font-heading font-bold text-4xl lg:text-5xl text-black leading-none'
+                    className='stat-count stat-number font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-black leading-none'
                     data-target={value}
                     data-decimals={decimals ?? 0}
                   >
                     {decimals ? value.toFixed(decimals) : value}
                   </span>
-                  <span className='font-heading font-bold text-3xl lg:text-4xl text-black leading-none pb-0.5'>{suffix}</span>
+                  <span className='font-heading font-bold text-2xl sm:text-3xl lg:text-4xl text-black leading-none pb-0.5'>{suffix}</span>
                 </div>
-                <span className='text-sm text-gray-500 font-medium uppercase tracking-wider'>{label}</span>
+                <span className='text-xs sm:text-sm text-gray-500 font-medium uppercase tracking-wider'>{label}</span>
               </div>
             ))}
           </div>
 
           {/* Divider */}
-          <div className='w-16 h-[2px] bg-black opacity-20 rounded-full'></div>
+          <div className='w-12 sm:w-16 h-[2px] bg-black opacity-20 rounded-full'></div>
 
           {/* Detailed bio */}
-          <p className='font-body text-gray-600 text-lg lg:text-xl xl:text-2xl leading-[1.75] max-w-[75ch]'>
+          <p className='font-body text-gray-600 text-base sm:text-lg lg:text-xl xl:text-2xl leading-[1.7] sm:leading-[1.75] max-w-[75ch]'>
             I'm a <strong className='text-black font-semibold'>Frontend Developer</strong> currently pursuing my{' '}
             <strong className='text-black font-semibold'>B.Tech in Computer Engineering</strong> at Punyashlok Ahilyadevi Holkar University, Solapur{' '}
             <span className='text-gray-500'>(CGPA: 8.3/10)</span>. My core web toolkit includes{' '}

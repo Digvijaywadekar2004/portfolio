@@ -71,14 +71,14 @@ const ContactModal = () => {
       onClick={closeContact}
     >
       <div
-        className="relative w-full max-w-2xl bg-[#121217] border border-white/15 rounded-3xl p-6 sm:p-10 shadow-2xl text-white my-8 transition-transform duration-300"
+        className="relative w-full max-w-2xl bg-[#121217] border border-white/15 rounded-3xl p-5 sm:p-8 lg:p-10 shadow-2xl text-white my-auto sm:my-8 max-h-[90vh] overflow-y-auto transition-transform duration-300"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           onClick={closeContact}
           aria-label="Close modal"
-          className="absolute top-6 right-6 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/70 hover:text-white transition-colors"
+          className="absolute top-4 right-4 sm:top-6 sm:right-6 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer"
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1 1L13 13M1 13L13 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />

@@ -175,7 +175,7 @@ const Projects = () => {
           </p>
 
           {/* Category Filter Pills */}
-          <div className="flex justify-center items-center gap-3 mt-10 flex-wrap">
+          <div className="flex justify-center items-center gap-2 sm:gap-3 mt-8 sm:mt-10 flex-wrap">
             {categories.map((cat) => {
               const count =
                 cat === 'All'
@@ -187,7 +187,7 @@ const Projects = () => {
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-5 py-2 rounded-full font-heading font-medium text-sm lg:text-base transition-all duration-300 flex items-center gap-2 cursor-pointer ${
+                  className={`px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full font-heading font-medium text-xs sm:text-sm lg:text-base transition-all duration-300 flex items-center gap-1.5 sm:gap-2 cursor-pointer ${
                     isActive
                       ? 'bg-black text-white shadow-lg scale-105'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -195,7 +195,7 @@ const Projects = () => {
                 >
                   <span>{cat}</span>
                   <span
-                    className={`text-xs px-2 py-0.5 rounded-full ${
+                    className={`text-[11px] sm:text-xs px-2 py-0.5 rounded-full ${
                       isActive ? 'bg-white/20 text-white' : 'bg-gray-200 text-gray-500'
                     }`}
                   >
@@ -207,7 +207,7 @@ const Projects = () => {
           </div>
 
           {/* Project Grid */}
-          <div className="grid md:grid-cols-2 gap-8 mt-12 lg:mt-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mt-10 sm:mt-12 lg:mt-16">
             {/* Featured card — full-width */}
             {featuredProject && (
               <FeaturedCard key={featuredProject.id} {...featuredProject} />
