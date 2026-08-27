@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import projects from '../components/projectsData'
 import CTA from '../components/CTA'
 
-const categories = ['All', 'Full-Stack', 'Frontend']
+const categories = ['All', ...Array.from(new Set(projects.map((p) => p.category)))]
 
 const Projects = () => {
   const [activeCategory, setActiveCategory] = useState('All')
@@ -20,7 +20,7 @@ const Projects = () => {
             Projects
           </h1>
           <p className="text-gray-500 text-center text-lg lg:text-xl mt-4 max-w-xl mx-auto">
-            A curated collection of full-stack systems, real-time architectures, and interactive web tools.
+            A curated collection of systems architectures, full-stack platforms, and interactive engineering tools.
           </p>
 
           {/* Category Filter Pills */}
@@ -56,8 +56,8 @@ const Projects = () => {
           </div>
 
           {/* Project Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 lg:mt-16">
-            {filteredProjects.map(({ id, name, category, tagline, stack, image, link }) => (
+          <div className="grid md:grid-cols-2 gap-8 mt-12 lg:mt-16">
+            {filteredProjects.map(({ id, name, category, tagline, highlights, stack, image, link }) => (
               <a
                 key={id}
                 href={link}
@@ -66,12 +66,12 @@ const Projects = () => {
                 className="group flex flex-col rounded-3xl overflow-hidden border border-gray-100 bg-white hover:shadow-2xl transition-all duration-500 hover:-translate-y-1.5"
               >
                 {/* Image */}
-                <div className="overflow-hidden h-44 lg:h-52 aspect-video relative">
+                <div className="overflow-hidden h-52 lg:h-64 aspect-video relative bg-slate-900">
                   <img
                     src={image}
                     alt={name}
-                    width={400}
-                    height={225}
+                    width={500}
+                    height={280}
                     loading="lazy"
                     decoding="async"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -86,19 +86,31 @@ const Projects = () => {
                 </div>
 
                 {/* Content */}
-                <div className="flex flex-col gap-3 p-6 flex-1">
+                <div className="flex flex-col gap-3 p-6 lg:p-8 flex-1">
                   {/* Name */}
                   <h3 className="uppercase font-heading font-bold text-xl lg:text-2xl leading-tight tracking-tight text-black group-hover:text-purple-600 transition-colors">
                     {name}
                   </h3>
 
                   {/* Tagline */}
-                  <p className="text-gray-600 text-sm lg:text-base leading-relaxed flex-1">
+                  <p className="text-gray-700 font-medium text-sm lg:text-base leading-relaxed">
                     {tagline}
                   </p>
 
+                  {/* Highlights / Features */}
+                  {highlights && highlights.length > 0 && (
+                    <ul className="space-y-1.5 text-xs lg:text-sm text-gray-500 my-2">
+                      {highlights.map((bullet, idx) => (
+                        <li key={idx} className="flex items-start gap-2">
+                          <span className="text-purple-500 font-bold leading-none mt-1">▸</span>
+                          <span className="leading-snug text-gray-600">{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
                   {/* Stack badges */}
-                  <div className="flex flex-wrap gap-1.5 mt-2">
+                  <div className="flex flex-wrap gap-1.5 mt-auto pt-3">
                     {stack.map((tech) => (
                       <span
                         key={tech}

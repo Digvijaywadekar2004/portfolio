@@ -17,6 +17,7 @@ const skillsData = [
 const techStack = [
   'React.js', 'Vite', 'JavaScript', 'Tailwind CSS', 'Recharts',
   'Node.js', 'Express', 'FastAPI', 'Socket.io',
+  'Go', 'gRPC', 'Docker',
   'MongoDB', 'PostgreSQL', 'Git & GitHub', 'Figma', 'REST APIs',
 ]
 
