@@ -99,7 +99,7 @@ const About = () => {
 
           {/* Detailed bio */}
           <p className='font-body text-gray-600 text-lg lg:text-xl xl:text-2xl leading-[1.75] max-w-[75ch]'>
-            I'm a <strong className='text-black font-semibold'>Full-Stack Developer</strong> currently pursuing my{' '}
+            I'm a <strong className='text-black font-semibold'>Frontend Developer</strong> currently pursuing my{' '}
             <strong className='text-black font-semibold'>B.Tech in Computer Engineering</strong> at Punyashlok Ahilyadevi Holkar University, Solapur{' '}
             <span className='text-gray-500'>(CGPA: 8.3/10)</span>. My core web toolkit includes{' '}
             <strong className='text-black font-semibold'>React.js, Vite, Tailwind CSS</strong> for the frontend and{' '}

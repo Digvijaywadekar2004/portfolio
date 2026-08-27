@@ -236,7 +236,7 @@ const GitHubActivity = () => {
 
                 {/* Description */}
                 <p className="text-gray-400 text-xs sm:text-sm leading-relaxed line-clamp-3 mb-4">
-                  {repo.description || 'Modern full-stack web application repository.'}
+                  {repo.description || 'Modern frontend & web application repository.'}
                 </p>
               </div>
 

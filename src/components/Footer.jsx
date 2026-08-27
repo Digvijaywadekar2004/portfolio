@@ -82,7 +82,7 @@ const Footer = () => {
             <img src={Logo} alt="Digvijay Wadekar Logo" className='h-10 w-auto' />
           </Link>
           <p className='text-sm text-white/50 leading-relaxed max-w-[180px]'>
-            Full-stack & systems developer building fast, real-world applications.
+            Frontend developer building fast, real-world applications.
           </p>
         </div>
 

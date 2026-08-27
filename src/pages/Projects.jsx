@@ -171,7 +171,7 @@ const Projects = () => {
             Projects
           </h1>
           <p className="text-gray-500 text-center text-lg lg:text-xl mt-4 max-w-xl mx-auto">
-            A curated collection of systems architectures, full-stack platforms, and interactive engineering tools.
+            A curated collection of frontend platforms, real-time architectures, and interactive web tools.
           </p>
 
           {/* Category Filter Pills */}
