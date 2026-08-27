@@ -29,7 +29,8 @@ const proficiencyLabel = (level) => {
 }
 
 const Skills = () => {
-  const skillsRef = useRef(null)
+  const skillsRef  = useRef(null)
+  const badgesRef   = useRef(null)
 
   useGSAP(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -77,16 +78,24 @@ const Skills = () => {
       }
     })
 
-    // Animate tech badges
-    gsap.from('.tech-badge', {
-      opacity: reduced ? 1 : 0,
-      y: reduced ? 0 : 30,
-      scale: reduced ? 1 : 0.85,
-      stagger: reduced ? 0 : 0.07,
-      duration: 0.5,
-      ease: 'back.out(1.5)',
-      scrollTrigger: { trigger: '.tech-badges', start: 'top 85%' },
-    })
+    // Animate tech badges — use ref as trigger so the element is guaranteed found;
+    // immediateRender: false prevents GSAP setting opacity:0 before trigger evaluates
+    if (!reduced && badgesRef.current) {
+      const badges = badgesRef.current.querySelectorAll('.tech-badge')
+      gsap.from(badges, {
+        opacity: 0,
+        y: 30,
+        scale: 0.85,
+        stagger: 0.06,
+        duration: 0.45,
+        ease: 'back.out(1.5)',
+        immediateRender: false,
+        scrollTrigger: {
+          trigger: badgesRef.current,
+          start: 'top 88%',
+        },
+      })
+    }
   }, { scope: skillsRef })
 
   return (
@@ -132,7 +141,7 @@ const Skills = () => {
           {/* Tech Stack Badges */}
           <div>
             <p className='mb-6 text-gray-500 uppercase text-sm tracking-widest font-body font-medium'>Tech Stack</p>
-            <div className='tech-badges flex flex-wrap gap-3'>
+            <div ref={badgesRef} className='tech-badges flex flex-wrap gap-3'>
               {techStack.map((tech) => (
                 <span
                   key={tech}
