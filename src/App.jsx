@@ -9,7 +9,6 @@ import ContactModal from './components/ContactModal'
 import SmoothScroll from './components/SmoothScroll'
 import CustomCursor from './components/CustomCursor'
 import BackToTop from './components/BackToTop'
-import SpaceCatMascot from './components/SpaceCatMascot'
 import { ContactProvider } from './context/ContactContext'
 import { ToastProvider } from './context/ToastContext'
 
@@ -28,7 +27,6 @@ const App = () => {
       <ContactProvider>
         <SmoothScroll />
         <CustomCursor />
-        <SpaceCatMascot />
         <Navbar />
         <ScrollToTopOnNav />
         <Routes>
